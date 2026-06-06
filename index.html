@@ -172,17 +172,16 @@ let total = 0;
 
 cart.forEach(item=>{
 
-pesan +=
-"- " +
-item.nama +
-" x" +
-item.qty +
-" Rp" +
-(item.qty * item.harga) +
-"%0A";
+jumlah += item.qty;
 
-total +=
-item.qty * item.harga;
+total += item.qty * item.harga;
+
+});
+
+document.getElementById("jumlah").innerText = jumlah;
+
+document.getElementById("total").innerText =
+total.toLocaleString("id-ID");
 
 }
 
@@ -220,11 +219,13 @@ cart.forEach(item=>{
 pesan +=
 "- " +
 item.nama +
+" x" +
+item.qty +
 " Rp" +
-item.harga +
+(item.qty * item.harga) +
 "%0A";
 
-total += item.harga;
+total += item.qty * item.harga;
 
 });
 
