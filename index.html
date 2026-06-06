@@ -79,7 +79,8 @@ Total: Rp <span id="total">0</span>
 <script>
 
 let cart = [];
-
+let semuaProduk = [];
+  
   fetch("Toko%20Sagala%20Produk%20-%20web.csv")
 .then(response => response.text())
 .then(csv => {
@@ -90,9 +91,11 @@ header:true
 
 const container =
 document.getElementById("produk");
-
-hasil.data.forEach(item=>{
-
+  
+semuaProduk = hasil.data;
+  
+tampilkanProduk(hasil.data);
+  
 if(item.Aktif !== "YA"){
 return;
 }
@@ -120,6 +123,61 @@ Rp ${Number(item.Harga).toLocaleString("id-ID")}
 
 });
 
+function tampilkanProduk(data){
+
+const container =
+document.getElementById("produk");
+
+container.innerHTML = "";
+
+data.forEach(item=>{
+
+if(item.Aktif !== "YA"){
+return;
+}
+
+container.innerHTML += `
+<div class="card">
+<h3>${item["Nama Produk"]}</h3>
+
+<p>
+Rp ${Number(item.Harga).toLocaleString("id-ID")}
+</p>
+
+<button onclick="addCart('${item["Nama Produk"]}',${item.Harga})">
++
+</button>
+
+<button onclick="kurangCart('${item["Nama Produk"]}')">
+-
+</button>
+
+</div>
+`;
+
+});
+
+}  
+
+document.getElementById("search")
+.addEventListener("input", function(){
+
+let keyword =
+this.value.toLowerCase();
+
+let hasilFilter =
+semuaProduk.filter(item =>
+
+item["Nama Produk"]
+.toLowerCase()
+.includes(keyword)
+
+);
+
+tampilkanProduk(hasilFilter);
+
+});
+  
 function addCart(nama,harga){
 
 let item = cart.find(
