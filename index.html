@@ -68,18 +68,48 @@ Tambah
 </button>
 </div>
 
-<div id="cart">
+<div id="cart" onclick="checkout()">
 🛒 <span id="jumlah">0</span>
 </div>
 
 <script>
 
-let totalItem = 0;
+let cart = [];
 
 function addCart(nama,harga){
-totalItem++;
-document.getElementById("jumlah").innerText=totalItem;
+
+cart.push({
+nama:nama,
+harga:harga
+});
+
+document.getElementById("jumlah").innerText = cart.length;
+
 alert(nama + " ditambahkan");
+}
+
+function checkout(){
+
+if(cart.length == 0){
+alert("Keranjang masih kosong");
+return;
+}
+
+let pesan = "Halo Toko Sagala%0A%0APesanan Saya:%0A";
+
+let total = 0;
+
+cart.forEach(item=>{
+pesan += "- " + item.nama + " Rp" + item.harga + "%0A";
+total += item.harga;
+});
+
+pesan += "%0ATotal Belanja: Rp" + total;
+
+window.open(
+"https://wa.me/62881023257951?text=" + pesan
+);
+
 }
 
 </script>
