@@ -90,25 +90,68 @@ alert(nama + " ditambahkan");
 
 function checkout(){
 
+function checkout(){
+
 if(cart.length == 0){
 alert("Keranjang masih kosong");
 return;
 }
 
-let pesan = "Halo Toko Sagala%0A%0APesanan Saya:%0A";
+let nama = prompt("Masukkan nama");
+
+if(!nama){
+return;
+}
+
+let alamat = prompt("Masukkan alamat");
+
+if(!alamat){
+return;
+}
 
 let total = 0;
 
+let pesan =
+"Halo Toko Sagala%0A%0A";
+
+pesan += "Nama: " + nama + "%0A";
+pesan += "Alamat: " + alamat + "%0A%0A";
+
+pesan += "Pesanan:%0A";
+
 cart.forEach(item=>{
-pesan += "- " + item.nama + " Rp" + item.harga + "%0A";
+
+pesan +=
+"- " +
+item.nama +
+" Rp" +
+item.harga +
+"%0A";
+
 total += item.harga;
+
 });
 
-pesan += "%0ATotal Belanja: Rp" + total;
+if(total < 25000){
+
+alert(
+"Minimal belanja Rp25.000"
+);
+
+return;
+
+}
+
+pesan +=
+"%0ATotal Belanja: Rp" +
+total;
 
 window.open(
-"https://wa.me/62881023257951?text=" + pesan
+"https://wa.me/62881023257951?text=" +
+pesan
 );
+
+}
 
 }
 
