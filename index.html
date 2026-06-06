@@ -96,6 +96,17 @@ semuaProduk = hasil.data;
   
 tampilkanProduk(hasil.data);
   
+});
+
+function tampilkanProduk(data){
+
+const container =
+document.getElementById("produk");
+
+container.innerHTML = "";
+
+data.forEach(item=>{
+
 if(item.Aktif !== "YA"){
 return;
 }
@@ -121,20 +132,7 @@ Rp ${Number(item.Harga).toLocaleString("id-ID")}
 
 });
 
-});
-
-function tampilkanProduk(data){
-
-const container =
-document.getElementById("produk");
-
-semuaProduk = hasil.data;
-
-tampilkanProduk(hasil.data);
-
-});
-
-}  
+}
 
 document.getElementById("search")
 .addEventListener("input", function(){
