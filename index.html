@@ -37,15 +37,39 @@ background:orange;
 padding:15px;
 border-radius:50%;
 }
+
+  #totalBox{
+background:white;
+padding:15px;
+border-radius:10px;
+margin-bottom:15px;
+font-weight:bold;
+}
+  
 </style>
 </head>
 
 <body>
 
 <h1>🏪 Toko Sagala</h1>
+  <input
+type="text"
+id="search"
+placeholder="Cari produk..."
+style="
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border-radius:8px;
+border:1px solid #ccc;
+">
+
+<div id="totalBox">
+Total: Rp <span id="total">0</span>
+</div>
 
 <div id="produk"></div>
-
+  
 <div id="cart" onclick="checkout()">
 🛒 <span id="jumlah">0</span>
 </div>
@@ -76,10 +100,19 @@ return;
 container.innerHTML += `
 <div class="card">
 <h3>${item["Nama Produk"]}</h3>
-<p>Rp ${item.Harga}</p>
+
+<p>
+Rp ${Number(item.Harga).toLocaleString("id-ID")}
+</p>
+
 <button onclick="addCart('${item["Nama Produk"]}',${item.Harga})">
-Tambah
++
 </button>
+
+<button onclick="kurangCart('${item["Nama Produk"]}')">
+-
+</button>
+
 </div>
 `;
 
@@ -89,14 +122,68 @@ Tambah
 
 function addCart(nama,harga){
 
+let item = cart.find(
+x => x.nama === nama
+);
+
+if(item){
+
+item.qty++;
+
+}else{
+
 cart.push({
 nama:nama,
-harga:harga
+harga:harga,
+qty:1
 });
 
-document.getElementById("jumlah").innerText = cart.length;
+}
 
-alert(nama + " ditambahkan");
+updateCart();
+
+}
+  function kurangCart(nama){
+
+let item = cart.find(
+x => x.nama === nama
+);
+
+if(!item) return;
+
+item.qty--;
+
+if(item.qty <= 0){
+
+cart = cart.filter(
+x => x.nama !== nama
+);
+
+}
+
+updateCart();
+
+}
+
+function updateCart(){
+
+let jumlah = 0;
+let total = 0;
+
+cart.forEach(item=>{
+
+pesan +=
+"- " +
+item.nama +
+" x" +
+item.qty +
+" Rp" +
+(item.qty * item.harga) +
+"%0A";
+
+total +=
+item.qty * item.harga;
+
 }
 
 function checkout(){
