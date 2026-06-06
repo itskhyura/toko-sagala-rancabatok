@@ -44,37 +44,46 @@ border-radius:50%;
 
 <h1>🏪 Toko Sagala</h1>
 
-<div class="card">
-<h3>Indomie Goreng</h3>
-<p>Rp 3.000</p>
-<button onclick="addCart('Indomie Goreng',3000)">
-Tambah
-</button>
-</div>
-
-<div class="card">
-<h3>Minyak Kita 1L</h3>
-<p>Rp 18.000</p>
-<button onclick="addCart('Minyak Kita',18000)">
-Tambah
-</button>
-</div>
-
-<div class="card">
-<h3>Gula 1 Kg</h3>
-<p>Rp 18.000</p>
-<button onclick="addCart('Gula',18000)">
-Tambah
-</button>
-</div>
+<div id="produk"></div>
 
 <div id="cart" onclick="checkout()">
 🛒 <span id="jumlah">0</span>
 </div>
 
-<script>
-
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  
 let cart = [];
+
+  fetch("Toko%20Sagala%20Produk%20-%20web.csv")
+.then(response => response.text())
+.then(csv => {
+
+const hasil = Papa.parse(csv,{
+header:true
+});
+
+const container =
+document.getElementById("produk");
+
+hasil.data.forEach(item=>{
+
+if(item.Aktif !== "YA"){
+return;
+}
+
+container.innerHTML += `
+<div class="card">
+<h3>${item["Nama Produk"]}</h3>
+<p>Rp ${item.Harga}</p>
+<button onclick="addCart('${item["Nama Produk"]}',${item.Harga})">
+Tambah
+</button>
+</div>
+`;
+
+});
+
+});
 
 function addCart(nama,harga){
 
