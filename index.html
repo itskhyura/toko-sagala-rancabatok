@@ -1,10 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Toko Sagala</title>
+<title>Toko Sagala</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+font-family:Arial;
+max-width:800px;
+margin:auto;
+padding:20px;
+background:#f5f5f5;
+}
+
+.card{
+background:white;
+padding:15px;
+margin-bottom:10px;
+border-radius:10px;
+}
+
+button{
+background:green;
+color:white;
+border:none;
+padding:10px;
+border-radius:5px;
+cursor:pointer;
+}
+
+#cart{
+position:fixed;
+bottom:20px;
+right:20px;
+background:orange;
+padding:15px;
+border-radius:50%;
+}
+</style>
 </head>
+
 <body>
-    <h1>Toko Sagala</h1>
-    <p>Selamat datang di Toko Sagala</p>
+
+<h1>🏪 Toko Sagala</h1>
+
+<div class="card">
+<h3>Indomie Goreng</h3>
+<p>Rp 3.000</p>
+<button onclick="addCart('Indomie Goreng',3000)">
+Tambah
+</button>
+</div>
+
+<div class="card">
+<h3>Minyak Kita 1L</h3>
+<p>Rp 18.000</p>
+<button onclick="addCart('Minyak Kita',18000)">
+Tambah
+</button>
+</div>
+
+<div class="card">
+<h3>Gula 1 Kg</h3>
+<p>Rp 18.000</p>
+<button onclick="addCart('Gula',18000)">
+Tambah
+</button>
+</div>
+
+<div id="cart">
+🛒 <span id="jumlah">0</span>
+</div>
+
+<script>
+
+let totalItem = 0;
+
+function addCart(nama,harga){
+totalItem++;
+document.getElementById("jumlah").innerText=totalItem;
+alert(nama + " ditambahkan");
+}
+
+</script>
+
 </body>
 </html>
