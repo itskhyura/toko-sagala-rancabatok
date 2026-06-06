@@ -128,32 +128,9 @@ function tampilkanProduk(data){
 const container =
 document.getElementById("produk");
 
-container.innerHTML = "";
+semuaProduk = hasil.data;
 
-data.forEach(item=>{
-
-if(item.Aktif !== "YA"){
-return;
-}
-
-container.innerHTML += `
-<div class="card">
-<h3>${item["Nama Produk"]}</h3>
-
-<p>
-Rp ${Number(item.Harga).toLocaleString("id-ID")}
-</p>
-
-<button onclick="addCart('${item["Nama Produk"]}',${item.Harga})">
-+
-</button>
-
-<button onclick="kurangCart('${item["Nama Produk"]}')">
--
-</button>
-
-</div>
-`;
+tampilkanProduk(hasil.data);
 
 });
 
